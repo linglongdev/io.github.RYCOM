@@ -1,0 +1,28 @@
+version: "1"
+
+package:
+  id: io.github.RYCOM
+  name: RYCOM
+  version: 2.5.0.0
+  kind: app
+  description: |
+    RYCOM是一款开源的串口调试助手
+
+command:
+  - /opt/apps/io.github.RYCOM/files/bin/RYCOM
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git	
+    url: https://github.com/wjyrich/RYCOM.git
+    version: master
+    commit: 039a86f435b14f9e113cf38f3947a20f533f6011
+
+build: |
+  cd /project/linglong/sources/RYCOM.git
+  cd sources
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install
